@@ -1,0 +1,42 @@
+Sub StockData()
+
+For Each ws In Worksheets
+
+Dim WorksheetName As String
+Dim firstRow As Integer
+firstRow = 2
+Dim lastRow As Double
+    
+Dim TickerSymbol As String
+Dim Ticker As String
+ws.Cells(1, 9).Value = "Ticker"
+Dim Volume As String
+ws.Cells(1, 10).Value = "Volume"
+Dim nRows As Double
+
+Dim TickerTotal As Double
+TickerTotal = 0
+Dim TickerCount As Integer
+TickerCount = 2
+
+
+    lastRow = ws.Cells(Rows.Count, 1).End(xlUp).Row
+    nRows = lastRow - firstRow + 1
+    'ws.Cells(2, 9).Value = ws.Cells(2, 1).Value
+    For i = 2 To nRows
+        If ws.Cells(i, 1).Value <> ws.Cells(i + 1, 1).Value Then
+            TickerSymbol = ws.Cells(i, 1).Value
+            ws.Range("I" & TickerCount).Value = TickerSymbol
+            TickerTotal = TickerTotal + ws.Cells(i, 7).Value
+            ws.Range("J" & TickerCount).Value = TickerTotal
+            TickerCount = TickerCount + 1
+            TickerTotal = 0
+        Else
+            TickerTotal = TickerTotal + ws.Cells(i, 7).Value
+        
+        
+        
+        End If
+    Next i
+Next ws
+End Sub
